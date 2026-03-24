@@ -47,16 +47,26 @@
         <a href="#visit">Visit</a>
       </nav>
       <div class="header-actions">
-        <div class="theme-switcher" aria-label="Colour scheme">
-          <button class="theme-button is-active" type="button" data-theme-choice="forest" aria-pressed="true">Forest</button>
-          <button class="theme-button" type="button" data-theme-choice="earth" aria-pressed="false">Earth</button>
-          <button class="theme-button" type="button" data-theme-choice="fire" aria-pressed="false">Fire</button>
-          <button class="theme-button" type="button" data-theme-choice="water" aria-pressed="false">Water</button>
-          <button class="theme-button" type="button" data-theme-choice="sky" aria-pressed="false">Sky</button>
-        </div>
         <a class="header-cta" href="https://www.ubereats.com/au/store/cedar-dough-chatswood-chatswood/jYoDNeL0Vc24dnhfPMbCwA" target="_blank" rel="noreferrer">Order now</a>
       </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </header>
+
+    <div class="mobile-menu glass-card" id="mobile-menu" hidden>
+      <nav class="mobile-menu-nav" aria-label="Mobile primary">
+        <a href="#story">Story</a>
+        <a href="#menu">Menu</a>
+        <a href="#catering">Catering</a>
+        <a href="#visit">Visit</a>
+      </nav>
+      <div class="mobile-menu-meta">
+        <a class="header-cta mobile-menu-cta" href="https://www.ubereats.com/au/store/cedar-dough-chatswood-chatswood/jYoDNeL0Vc24dnhfPMbCwA" target="_blank" rel="noreferrer">Order now</a>
+      </div>
+    </div>
 
     <main class="page" id="top">
       <section class="hero glass-panel">
@@ -70,20 +80,6 @@
           <div class="hero-actions">
             <a class="button button-solid" href="#menu">Explore the menu</a>
             <a class="button button-ghost" href="#catering">See catering</a>
-          </div>
-          <div class="hero-meta">
-            <div>
-              <span>4.7 Google</span>
-              <strong>400+ reviews</strong>
-            </div>
-            <div>
-              <span>Certified</span>
-              <strong>100% Halal</strong>
-            </div>
-            <div>
-              <span>From</span>
-              <strong>6:30am most days</strong>
-            </div>
           </div>
         </div>
 
@@ -103,6 +99,21 @@
               food.”
             </p>
           </aside>
+        </div>
+
+        <div class="hero-meta">
+          <div>
+            <span>4.7 Google</span>
+            <strong>400+ reviews</strong>
+          </div>
+          <div>
+            <span>Certified</span>
+            <strong>100% Halal</strong>
+          </div>
+          <div>
+            <span>From</span>
+            <strong>6:30am most days</strong>
+          </div>
         </div>
       </section>
 
@@ -286,16 +297,21 @@
       </section>
     </main>
 
-    <nav class="mobile-dock" aria-label="Quick actions">
-      <a href="tel:+61416659531">Call</a>
-      <a href="https://www.ubereats.com/au/store/cedar-dough-chatswood-chatswood/jYoDNeL0Vc24dnhfPMbCwA" target="_blank" rel="noreferrer">Order</a>
-      <a href="https://maps.google.com/?q=168+Victoria+Ave+Chatswood+NSW+2067" target="_blank" rel="noreferrer">Visit</a>
-    </nav>
+    <div class="floating-theme-switcher theme-switcher" aria-label="Colour scheme">
+      <button class="theme-button is-active" type="button" data-theme-choice="forest" aria-pressed="true">Forest</button>
+      <button class="theme-button" type="button" data-theme-choice="earth" aria-pressed="false">Earth</button>
+      <button class="theme-button" type="button" data-theme-choice="fire" aria-pressed="false">Fire</button>
+      <button class="theme-button" type="button" data-theme-choice="water" aria-pressed="false">Water</button>
+      <button class="theme-button" type="button" data-theme-choice="sky" aria-pressed="false">Sky</button>
+    </div>
 
     <script>
       (() => {
         const root = document.body;
         const buttons = document.querySelectorAll("[data-theme-choice]");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const mobileMenu = document.querySelector("#mobile-menu");
+        const mobileLinks = document.querySelectorAll(".mobile-menu a");
         const storageKey = "cedar-dough-theme";
 
         const applyTheme = (theme) => {
@@ -314,6 +330,30 @@
         buttons.forEach((button) => {
           button.addEventListener("click", () => applyTheme(button.dataset.themeChoice));
         });
+
+        if (menuToggle && mobileMenu) {
+          const closeMenu = () => {
+            mobileMenu.hidden = true;
+            menuToggle.setAttribute("aria-expanded", "false");
+            root.classList.remove("menu-open");
+          };
+
+          menuToggle.addEventListener("click", () => {
+            const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+            if (isOpen) {
+              closeMenu();
+              return;
+            }
+
+            mobileMenu.hidden = false;
+            menuToggle.setAttribute("aria-expanded", "true");
+            root.classList.add("menu-open");
+          });
+
+          mobileLinks.forEach((link) => {
+            link.addEventListener("click", closeMenu);
+          });
+        }
       })();
     </script>
   </body>

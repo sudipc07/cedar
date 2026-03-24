@@ -260,6 +260,39 @@ h3 {
   gap: 12px;
 }
 
+.menu-toggle,
+.mobile-menu {
+  display: none;
+}
+
+.menu-toggle {
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  position: absolute;
+  width: 16px;
+  height: 1.5px;
+  background: var(--muted-strong);
+  border-radius: 999px;
+}
+
+.menu-toggle span:nth-child(1) {
+  transform: translateY(-5px);
+}
+
+.menu-toggle span:nth-child(3) {
+  transform: translateY(5px);
+}
+
 .theme-switcher {
   display: inline-flex;
   align-items: center;
@@ -293,6 +326,18 @@ h3 {
   color: #0b1712;
 }
 
+.floating-theme-switcher {
+  position: fixed;
+  right: 16px;
+  bottom: 18px;
+  z-index: 7;
+  max-width: min(560px, calc(100vw - 24px));
+  flex-wrap: wrap;
+  background: rgba(16, 30, 24, 0.72);
+  backdrop-filter: blur(24px) saturate(140%);
+  box-shadow: var(--shadow);
+}
+
 .header-cta {
   display: inline-flex;
   align-items: center;
@@ -302,6 +347,47 @@ h3 {
   border-radius: 999px;
   background: var(--header-pill);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-menu {
+  position: relative;
+  z-index: 19;
+  width: var(--header-width);
+  margin: 10px auto 0;
+  padding: 18px;
+}
+
+.mobile-menu[hidden] {
+  display: none !important;
+}
+
+.mobile-menu-nav {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-menu-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted-strong);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mobile-menu-meta {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.mobile-menu-cta {
+  justify-self: start;
 }
 
 .page {
@@ -398,7 +484,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  margin-top: 34px;
+  grid-column: 1 / -1;
 }
 
 .hero-meta div {
@@ -479,7 +565,9 @@ h1 {
   z-index: 4;
   max-width: 360px;
   padding: 18px;
-  background: rgba(20, 36, 28, 0.42);
+  background: rgba(14, 26, 21, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(26px) saturate(170%);
 }
 
 .floating-quote p:last-child,
@@ -506,11 +594,15 @@ h1 {
 .strip {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 20px;
+  position: relative;
+  z-index: 5;
 }
 
 .strip-item {
   padding: 18px 20px;
   color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(30px) saturate(170%);
 }
 
 .section-grid {
@@ -638,38 +730,6 @@ h1 {
   font-weight: 700;
 }
 
-.mobile-dock {
-  position: fixed;
-  left: 50%;
-  bottom: 14px;
-  transform: translateX(-50%);
-  z-index: 6;
-  display: none;
-  width: min(560px, calc(100vw - 20px));
-  padding: 8px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(16, 30, 24, 0.72);
-  backdrop-filter: blur(24px) saturate(140%);
-  box-shadow: var(--shadow);
-}
-
-.mobile-dock a {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  border-radius: 999px;
-  color: var(--ink);
-  font-weight: 700;
-}
-
-.mobile-dock a:nth-child(2) {
-  background: rgba(255, 255, 255, 0.88);
-  color: #0b1712;
-}
-
 @media (max-width: 1120px) {
   .story-grid,
   .menu-grid,
@@ -712,6 +772,10 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  body.menu-open {
+    overflow: hidden;
+  }
+
   .page {
     padding-bottom: 96px;
   }
@@ -752,9 +816,7 @@ h1 {
   }
 
   .floating-quote {
-    position: static;
-    max-width: none;
-    margin-top: 14px;
+    display: none;
   }
 
   .hours-list li {
@@ -762,12 +824,46 @@ h1 {
     gap: 2px;
   }
 
-  .mobile-dock {
+  .site-header {
+    row-gap: 10px;
+    align-items: center;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .menu-toggle,
+  .mobile-menu {
     display: flex;
   }
 
-  .theme-switcher {
-    display: none;
+  .menu-toggle {
+    position: relative;
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  .mobile-menu {
+    display: block;
+    width: var(--header-width);
+    max-width: calc(100vw - 20px);
+  }
+
+  .floating-theme-switcher {
+    right: 12px;
+    bottom: 14px;
+    max-width: calc(100vw - 24px);
+  }
+
+  .theme-button {
+    min-height: 32px;
+    padding: 0 10px;
+    font-size: 0.62rem;
   }
 }
 
