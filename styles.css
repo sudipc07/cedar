@@ -756,7 +756,6 @@ h1 {
   }
 
   .site-header {
-    position: static;
     flex-wrap: wrap;
   }
 
