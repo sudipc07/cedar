@@ -704,7 +704,8 @@ button { font-family: inherit; }
   .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
 
   .hero-img { background-position: 62% 30%; }
-  .hero { align-items: flex-end; }
+  .hero { align-items: flex-end; padding-bottom: 0; }
+  .hero-content { transform: translateY(4.5rem); }
   .hero-content { max-width: 100%; padding: 0; margin-top: auto; }
   .hero-glass {
     border-radius: 0;
