@@ -383,8 +383,8 @@ button { font-family: inherit; }
 }
 .spread-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 4rem 2rem 2.5rem;
-  background: linear-gradient(to top, rgba(26,20,16,0.8) 0%, transparent 100%);
+  padding: 1.2rem 2rem 1.2rem;
+  background: linear-gradient(to top, rgba(26,20,16,0.75) 0%, transparent 60%);
   display: flex; justify-content: center; align-items: end;
 }
 .spread-text {
@@ -393,7 +393,7 @@ button { font-family: inherit; }
   backdrop-filter: var(--glass-blur-heavy);
   -webkit-backdrop-filter: var(--glass-blur-heavy);
   border: 1px solid var(--glass-border);
-  padding: 2rem 3rem;
+  padding: 1.2rem 2.5rem;
 }
 .spread-text h2 {
   font-family: var(--serif);
@@ -704,7 +704,7 @@ button { font-family: inherit; }
   .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
 
   .hero-img { background-position: 62% 30%; }
-  .hero { align-items: flex-end; min-height: 140vh; min-height: 140svh; }
+  .hero { align-items: flex-end; min-height: 115vh; min-height: 115svh; }
   .hero-content { max-width: 100%; padding: 0; margin-top: auto; }
   .hero-glass {
     border-radius: 0;
